@@ -18,3 +18,6 @@ init:
 	mkdir -p ./volumes/app/mattermost/{config,data,logs,plugins,client/plugins,bleve-indexes} ./volumes/web/cert
 	sudo chown -R 2000:2000 ./volumes/app/mattermost
 	sudo tailscale cert --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}') $$(grep '^DOMAIN' .env | awk -F= '{print $$2}')
+
+logs:
+	docker logs -f mattermost-mattermost-1
