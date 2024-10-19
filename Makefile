@@ -14,7 +14,7 @@ down:
 
 init:
 	sudo rm -rv ./volumes/app/mattermost || true
-	sudo rm -rv $$(pwd)/certs || true
-	mkdir -p ./volumes/app/mattermost/{config,data,logs,plugins,client/plugins,bleve-indexes}
+	sudo rm -rv $$(pwd)/{certs,web/cert} || true
+	mkdir -p ./volumes/app/mattermost/{config,data,logs,plugins,client/plugins,bleve-indexes} ./volumes/web/cert
 	sudo chown -R 2000:2000 ./volumes/app/mattermost
-	tailscale cert $$(grep '^DOMAIN' .env | awk -F= '{print $$2}') --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}')
+	sudo tailscale cert --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}') $$(grep '^DOMAIN' .env | awk -F= '{print $$2}')
