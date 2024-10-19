@@ -17,8 +17,4 @@ init:
 	sudo rm -rv $$(pwd)/certs || true
 	mkdir -p ./volumes/app/mattermost/{config,data,logs,plugins,client/plugins,bleve-indexes}
 	sudo chown -R 2000:2000 ./volumes/app/mattermost
-	sudo tailscale funnel --bg --tcp 80 tcp://localhost:80
-	sudo tailscale funnel --bg --tcp 443 tcp://localhost:443
-	sudo bash scripts/issue-certificate.sh -d $$(grep '^DOMAIN=' .env | awk -F= '{print $$2}') -o $$(pwd)/certs
-	sudo tailscale funnel --bg --tcp 80 off
-	sudo tailscale funnel --bg --tcp 443 off
+	tailscale cert $$(grep '^DOMAIN' .env | awk -F= '{print $$2}') --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}')
