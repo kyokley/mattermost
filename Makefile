@@ -1,10 +1,12 @@
 .PHONY: up down
 
 up:
+	sudo tailscale funnel --bg $$(grep '^APP_PORT' .env | awk -F= '{print $2}')
 	docker compose -f docker-compose.yml -f docker-compose.without-nginx.yml up -d
 
 down:
 	docker compose -f docker-compose.yml -f docker-compose.without-nginx.yml down
+	sudo tailscale funnel --bg $$(grep '^APP_PORT' .env | awk -F= '{print $2}') off
 
 init:
 	rm -rv ./volumes/app/mattermost || true
