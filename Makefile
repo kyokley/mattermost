@@ -21,3 +21,6 @@ init:
 
 logs:
 	docker logs -f mattermost-mattermost-1
+
+shell:
+	docker compose -f docker-compose.yml -f docker-compose.nginx.yml exec -it mattermost /bin/bash
