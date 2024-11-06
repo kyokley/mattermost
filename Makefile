@@ -1,4 +1,4 @@
-.PHONY: up down
+.PHONY: up down init logs shell restart
 
 up:
 	# sudo tailscale funnel --bg --tcp $$(grep '^HTTP_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^HTTP_PORT' .env | awk -F= '{print $$2}')
@@ -27,3 +27,5 @@ logs:
 
 shell:
 	docker compose -f docker-compose.yml -f docker-compose.nginx.yml -f jitsi/docker-compose.yml exec -it mattermost /bin/bash
+
+restart: down up
