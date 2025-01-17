@@ -24,3 +24,6 @@ shell:
 	docker compose -f docker-compose.yml -f docker-compose.nginx.yml exec -it mattermost /bin/bash
 
 restart: down up
+
+renew-cert:
+	sudo tailscale cert --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}') $$(grep '^DOMAIN' .env | awk -F= '{print $$2}')
