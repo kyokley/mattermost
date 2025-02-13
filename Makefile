@@ -15,7 +15,6 @@ init:
 	sudo rm -rv $$(pwd)/{certs,web/cert} || true
 	mkdir -p ./volumes/app/mattermost/{config,data,logs,plugins,client/plugins,bleve-indexes} ./volumes/web/cert
 	sudo chown -R 2000:2000 ./volumes/app/mattermost
-	sudo tailscale cert --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}') $$(grep '^DOMAIN' .env | awk -F= '{print $$2}')
 
 logs:
 	docker logs -f mattermost-mattermost-1
@@ -24,9 +23,6 @@ shell:
 	docker compose exec -it mattermost /bin/bash
 
 restart: pull down up
-
-renew-cert:
-	sudo tailscale cert --cert-file $$(grep '^CERT_PATH' .env | awk -F= '{print $$2}') --key-file $$(grep '^KEY_PATH' .env | awk -F= '{print $$2}') $$(grep '^DOMAIN' .env | awk -F= '{print $$2}')
 
 pull:
 	docker compose pull
