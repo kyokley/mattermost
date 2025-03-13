@@ -93,6 +93,7 @@ services:
 
   certbot:
     image: certbot/certbot
+    restart: ${RESTART_POLICY}
     volumes:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
