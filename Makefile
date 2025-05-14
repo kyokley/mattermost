@@ -22,6 +22,9 @@ logs:
 shell:
 	docker compose exec -it mattermost /bin/bash
 
+certbot-shell:
+	docker compose exec -it certbot sh
+
 restart: pull down up
 
 pull:
