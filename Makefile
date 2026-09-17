@@ -1,14 +1,14 @@
 .PHONY: up down init logs shell restart
 
 up:
-	sudo tailscale funnel --bg --tcp $$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}')
-	sudo tailscale funnel --bg --tcp $$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}')
+	# sudo tailscale funnel --bg --tcp $$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}')
+	# sudo tailscale funnel --bg --tcp $$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}')
 	docker compose up -d
 
 down:
 	docker compose down
-	sudo tailscale funnel --bg --tcp $$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}') off
-	sudo tailscale funnel --bg --tcp $$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}') off
+	# sudo tailscale funnel --bg --tcp $$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^HTTPS_PORT' .env | awk -F= '{print $$2}') off
+	# sudo tailscale funnel --bg --tcp $$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}') tcp://localhost:$$(grep '^CALLS_PORT' .env | awk -F= '{print $$2}') off
 
 init:
 	sudo rm -rv ./volumes/app/mattermost || true
